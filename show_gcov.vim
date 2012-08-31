@@ -1,5 +1,6 @@
 function! ShowGcov()
-  exe 'sign define SignGcov linehl=SignColor texthl=SignColor'
+  highlight GcovColor ctermfg=white ctermbg=red guifg=white guibg=red
+  exe 'sign define SignGcov linehl=GcovColor texthl=GcovColor'
 
   if has('python')
 python << EOF
