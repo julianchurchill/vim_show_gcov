@@ -1,0 +1,4 @@
+* Make ShowGcov() take a filename argument for the .gcov file
+* Make ShowGcov() read line numbers from .gcov file and set the symbols in the current file on the same line numbers
+* Add custom highlight colour definition
+* Add function to remove all gcov highlighting from current file
