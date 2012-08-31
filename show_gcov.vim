@@ -12,7 +12,6 @@ with open("test/main.cpp.gcov") as f:
         matched = re.search(r"^ +#####: +([0-9]+):", line)
         if matched:
             line_num = matched.group(1)
-            vim.command('echo "' + str(line_num) + '"')
             vim.command('exe \'sign place 9823 line=' + line_num + ' name=SignGcov buffer=\' . winbufnr(0)')
 EOF
   else
