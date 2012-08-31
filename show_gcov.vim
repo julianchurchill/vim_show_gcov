@@ -1,15 +1,22 @@
 function! ShowGcov()
-  echo "running ShowGcov()"
-
-  if !exists("b:ShowGcov_sign_number")
-    let b:ShowGcov_sign_number = 1
-  endif
-
-  let current_line = line(".")
-
   exe 'sign define SignGcov linehl=SignColor texthl=SignColor'
-  exe 'sign place ' . b:ShowGcov_sign_number . ' line=' . current_line . ' name=SignGcov buffer=' . winbufnr(0)
 
-  let b:ShowGcov_sign_number = b:ShowGcov_sign_number + 1
+  if has('python')
+python << EOF
+import vim
+import re
+
+with open("test/main.cpp.gcov") as f:
+    content = f.readlines()
+    for line in content:
+        matched = re.search(r"^ +#####: +([0-9]+):", line)
+        if matched:
+            line_num = matched.group(1)
+            vim.command('echo "' + str(line_num) + '"')
+            vim.command('exe \'sign place 9823 line=' + line_num + ' name=SignGcov buffer=\' . winbufnr(0)')
+EOF
+  else
+    echohl Error | echo "ShowGcov() requires vim built with python support" | echohl None
+  endif
 
 endfunction
