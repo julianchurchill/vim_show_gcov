@@ -1,4 +1,3 @@
-* Make ShowGcov() read line numbers from .gcov file and set the symbols in the current file on the same line numbers
 * Make ShowGcov() take a filename argument for the .gcov file
 * Make ShowGcov() take no arguments and search for the .gcov file for the current file in the current directory and below
 * Add custom highlight colour definition
