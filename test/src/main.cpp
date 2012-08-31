@@ -4,8 +4,8 @@ int main( int argc, char** argv )
 {
     bool run = false;
     if( run )
-        printf( "0th path\n" );
+        printf( "0th path" );
     else
-        printf( "1st path\n" );
+        printf( "1st path" );
     return 0;
 }
