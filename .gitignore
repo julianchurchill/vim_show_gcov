@@ -1,4 +1,4 @@
 *.gcda
 *.gcno
 *.gcov
-test
+main_test

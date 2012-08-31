@@ -1,3 +1,3 @@
 #!/bin/sh
 
-g++ -fprofile-arcs -ftest-coverage src/main.cpp -o test && ./test && gcov *.gcda
+g++ -fprofile-arcs -ftest-coverage src/main.cpp -o main_test && ./main_test && gcov *.gcda
