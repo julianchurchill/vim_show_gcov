@@ -26,7 +26,13 @@ class ShowGcovTests(unittest.TestCase):
         full_cpp_path = self.start_dir + "/main.cpp"
         self.assertEquals(show_gcov.find_gcov_file(full_cpp_path), "")
 
-    #def test_should_only_match_gcov_file_with_same_name_as_input_file(self):
+    def test_should_only_match_gcov_file_with_same_name_as_input_file(self):
+        search_cpp_path = self.start_dir + "/other.cpp"
+        full_cpp_path = self.start_dir + "/main.cpp"
+        f = open(full_cpp_path + '.gcov', 'w')
+        f.write("some gcov file content")
+        f.close
+        self.assertEquals(show_gcov.find_gcov_file(search_cpp_path), "")
 
 if __name__ == "__main__":
     unittest.main()
