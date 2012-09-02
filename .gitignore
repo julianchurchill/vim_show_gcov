@@ -1,4 +1,5 @@
 *.gcda
 *.gcno
 *.gcov
+*.pyc
 main_test

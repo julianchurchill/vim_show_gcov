@@ -19,8 +19,18 @@ function! ShowGcov()
 python << EOF
 import vim
 import re
+import os, sys, inspect
+# realpath() with make your script run, even if you symlink it :)
+cmd_folder = os.path.realpath(os.path.abspath(os.path.split(inspect.getfile( inspect.currentframe() ))[0]))
+if cmd_folder not in sys.path:
+    sys.path.insert(0, cmd_folder)
+import show_gcov
 
-with open("test/main.cpp.gcov") as f:
+gcov_file = show_gcov.find_gcov_file();
+if gcov_file == "":
+    gcov_file = "test/main.cpp.gcov"
+
+with open(gcov_file) as f:
     content = f.readlines()
     for line in content:
         matched = re.search(r"^ +#####: +([0-9]+):", line)
