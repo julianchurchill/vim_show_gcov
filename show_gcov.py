@@ -2,16 +2,34 @@ import os
 
 
 def find_gcov_file(full_cpp_path):
-    if os.path.exists(full_cpp_path + ".gcov"):
-        return full_cpp_path + ".gcov"
+    f = FindGcovFile(full_cpp_path)
+    return f.find_gcov_file()
 
-    filename = os.path.basename(full_cpp_path)
-    initial_search_dir = os.path.dirname(full_cpp_path)
-    for dir_entry in os.listdir(initial_search_dir):
-        full_entry_path = os.path.join(initial_search_dir, dir_entry)
-        if os.path.isdir(full_entry_path):
-            full_gcov_path = os.path.join(full_entry_path, filename) + ".gcov"
-            if os.path.exists(full_gcov_path):
-                return full_gcov_path
 
-    return ""
+class FindGcovFile:
+    gcov_extension = ".gcov"
+
+    def __init__(self, full_cpp_path):
+        self.full_cpp_path = full_cpp_path
+        self.filename = os.path.basename(self.full_cpp_path)
+
+    def find_gcov_file(self):
+        if os.path.exists(self.full_cpp_path + FindGcovFile.gcov_extension):
+            return self.full_cpp_path + FindGcovFile.gcov_extension
+        return self.search_subdirs()
+
+    def search_subdirs(self):
+        initial_search_dir = os.path.dirname(self.full_cpp_path)
+        for entry in os.listdir(initial_search_dir):
+            file_path = self.find_gcov_file_in_directory(
+                    os.path.join(initial_search_dir, entry))
+            if file_path != "":
+                return file_path
+        return ""
+
+    def find_gcov_file_in_directory(self, path):
+        if os.path.isdir(path):
+            gcov_path = os.path.join(path, self.filename) + FindGcovFile.gcov_extension
+            if os.path.exists(gcov_path):
+                return gcov_path
+        return ""
