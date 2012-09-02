@@ -27,7 +27,7 @@ class FindGcovFile:
             self.find_gcov_file_in_directory(
                     os.path.join(self.initial_search_dir, entry))
             if self.result != "":
-                return
+                break
 
     def find_gcov_file_in_directory(self, path):
         if os.path.isdir(path):
