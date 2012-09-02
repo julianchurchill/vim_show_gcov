@@ -13,14 +13,18 @@ class ShowGcovTests(unittest.TestCase):
     def tearDown(self):
         shutil.rmtree( self.start_dir )
 
-    def test_should_return_start_directory_if_gcov_file_is_there(self):
+    def test_should_return_gcov_file_in_start_directory_if_there(self):
         full_cpp_path = self.start_dir + "/main.cpp"
         f = open( full_cpp_path + '.gcov', 'w' )
         f.write( "some gcov file content" )
         f.close
-        self.assertEquals( show_gcov.find_gcov_file( full_cpp_path ), self.start_dir )
+        self.assertEquals( show_gcov.find_gcov_file( full_cpp_path ), full_cpp_path + ".gcov" )
 
-    #def test_should_return_blank_if_gcov_file_not_found(self):
+    def test_should_return_blank_if_gcov_file_not_found(self):
+        full_cpp_path = self.start_dir + "/main.cpp"
+        self.assertEquals( show_gcov.find_gcov_file( full_cpp_path ), "" )
+
+    #def test_should_only_match_gcov_file_with_same_name_as_input_file(self):
 
 if __name__ == "__main__":
     unittest.main()
