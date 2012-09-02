@@ -26,7 +26,7 @@ if cmd_folder not in sys.path:
     sys.path.insert(0, cmd_folder)
 import show_gcov
 
-gcov_file = show_gcov.find_gcov_file();
+gcov_file = show_gcov.find_gcov_file( "" );
 if gcov_file == "":
     gcov_file = "test/main.cpp.gcov"
 
