@@ -35,7 +35,7 @@ class ShowGcovTests(unittest.TestCase):
         self.create_dummy_file(full_cpp_path + '.gcov')
         self.assertEquals(show_gcov.find_gcov_file(search_cpp_path), "")
 
-    def test_should_search_child_directories_of_requested_path(self):
+    def test_should_search_child_directories(self):
         full_cpp_path = self.start_dir + "/main.cpp"
         gcov_path = self.start_dir + '/dir1'
         if not os.path.exists(gcov_path):
@@ -43,6 +43,10 @@ class ShowGcovTests(unittest.TestCase):
         gcov_file = gcov_path + '/main.cpp.gcov'
         self.create_dummy_file(gcov_file)
         self.assertEquals(show_gcov.find_gcov_file(full_cpp_path), gcov_file)
+
+    #def test_should_search_multiple_levels_of_child_directories(self):
+    #def test_should_search_parent_directory(self):
+    #def test_should_search_child_directories_of_parent_directory(self):
 
 if __name__ == "__main__":
     unittest.main()
