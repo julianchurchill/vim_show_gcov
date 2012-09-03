@@ -5,7 +5,7 @@ X Add function to remove all gcov highlighting from current file
   * Then search all it's child directories recursively.
   * Then search in the parent directory and all it's children excluding the original directory.
   * Then the grand-parent directory and all children and so on.
-  * If file is not found print an error message.
+X If file is not found print an error message.
 * Add default key mappings, e.g. <leader>gcs  (gcov show), <leader>gch  (gcov hide)
 * Give messages to indicate progress in searching directories
 * Give option to abort mid search for gcov file
