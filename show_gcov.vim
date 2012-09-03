@@ -29,11 +29,9 @@ import show_gcov
 
 buf = vim.eval('bufname("%")')
 filename = vim.eval('fnamemodify("'+buf+'",":p")')
-
 gcov_file = show_gcov.find_gcov_file( filename );
-#gcov_file = show_gcov.find_gcov_file( "" );
-#if gcov_file == "":
-#    gcov_file = "test/main.cpp.gcov"
+if gcov_file == "":
+    gcov_file = "test/main.cpp.gcov"
 
 if gcov_file == "":
     vim.command('echohl Error | echo "ShowGcov() gcov file for \'' + filename + '\' not found" | echohl None')
@@ -43,7 +41,11 @@ else:
     for line in f:
         matched = re.search(r"^ +#####", line)
         if matched:
-            vim.command('exe \'sign place \' . b:ShowGcov_sign_number . \' line=' + str(line_num) + ' name=SignGcov buffer=\' . winbufnr(0)')
+            line_number = str(line_num)
+            matched = re.search(r"^ +#####: +([0-9]+):", line)
+            if matched:
+                line_number = matched.group(1)
+            vim.command('exe \'sign place \' . b:ShowGcov_sign_number . \' line=' + line_number + ' name=SignGcov buffer=\' . winbufnr(0)')
             vim.command('let b:ShowGcov_sign_number = b:ShowGcov_sign_number + 1')
         line_num = line_num + 1
     f.close()
