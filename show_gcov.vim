@@ -29,8 +29,6 @@ import show_gcov
 buf = vim.eval('bufname("%")')
 filename = vim.eval('fnamemodify("'+buf+'",":p")')
 gcov_file = show_gcov.find_gcov_file( filename );
-#if gcov_file == "":
-#    gcov_file = "test/main.cpp.gcov"
 
 if gcov_file == "":
     vim.command('echohl Error | echo "ShowGcov() gcov file for \'' + filename + '\' not found" | echohl None')
