@@ -16,7 +16,11 @@ class FindGcovFile:
         self.result = ""
 
     def find_gcov_file(self):
-        return self.find_gcov_file_recursive(self.initial_search_dir)
+        self.find_gcov_file_recursive(self.initial_search_dir)
+        if self.result == "":
+            (parent_dir, end_dir) = os.path.split(self.initial_search_dir)
+            self.find_gcov_file_in_directory(parent_dir)
+        return self.result
 
     def find_gcov_file_recursive(self, start_dir):
         self.find_gcov_file_in_directory(start_dir)

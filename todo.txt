@@ -3,7 +3,7 @@ X Add function to remove all gcov highlighting from current file
 * Make ShowGcov() take no arguments and search for the .gcov file for the current file in the same directory as the current file.
   X Search the current directory.
   X Then search all it's child directories recursively.
-  * Then search in the parent directory
+  X Then search in the parent directory
   * Then the grand-parent directory and so on.
 X If file is not found print an error message.
 * Add default key mappings, e.g. <leader>gcs  (gcov show), <leader>gch  (gcov hide)
