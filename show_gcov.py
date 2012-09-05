@@ -16,24 +16,26 @@ class FindGcovFile:
         self.result = ""
 
     def find_gcov_file(self):
-        if os.path.exists(self.make_gcov_filename(self.initial_search_dir)):
-            self.result = self.make_gcov_filename(self.initial_search_dir)
-        else:
-            self.search_subdirs()
+        return self.find_gcov_file_recursive(self.initial_search_dir)
+
+    def find_gcov_file_recursive(self, start_dir):
+        self.find_gcov_file_in_directory(start_dir)
+        if self.result == "":
+            self.search_subdirs(start_dir)
         return self.result
 
-    def search_subdirs(self):
-        for entry in os.listdir(self.initial_search_dir):
-            self.find_gcov_file_in_directory(
-                    os.path.join(self.initial_search_dir, entry))
-            if self.result != "":
-                break
-
     def find_gcov_file_in_directory(self, path):
-        if os.path.isdir(path):
-            gcov_path = self.make_gcov_filename(path)
-            if os.path.exists(gcov_path):
-                self.result = gcov_path
+        gcov_path = self.make_gcov_filename(path)
+        if os.path.exists(gcov_path):
+            self.result = gcov_path
+
+    def search_subdirs(self, search_dir):
+        for entry in os.listdir(search_dir):
+            path = os.path.join(search_dir, entry)
+            if os.path.isdir(path):
+                self.find_gcov_file_recursive(path)
+                if self.result != "":
+                    break
 
     def make_gcov_filename(self, path):
         return os.path.join(path, self.filename) + FindGcovFile.gcov_extension
